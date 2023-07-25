@@ -7,6 +7,7 @@ axios.defaults.baseURL="http://localhost:4000/"
 
 export default function Textcontrols() {
   const [despdataList,setdespDataList]= useState([])
+  // const [eamt,seteAmtList]= useState([])
 
   const getDespData = async()=> {
     const despdata = await axios.get("/quality/")
@@ -17,9 +18,23 @@ export default function Textcontrols() {
   }
   useEffect(()=>{
     getDespData()
+    
   },[])
-
   console.log(despdataList)
+
+  // const getEamt = async()=> {
+  //   const eamtdata = await axios.post("/estimate/",formData)
+  //   console.log(eamtdata)
+  //   if(eamtdata.data.success){
+  //     seteAmtList(eamtdata.data.data)
+  //   } 
+  //   console.log(eamt)
+  // }
+  // useEffect(()=>{
+  //   getEamt()
+    
+  // },[])
+  // console.log(eamt)
   
 
   const [formData, setFormData] = useState({
@@ -44,10 +59,13 @@ export default function Textcontrols() {
   };
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Here you can handle form submission, for example, send the data to the server or perform any other actions.
+    const runestimate = await axios.post("/estimate/",formData);
+    console.log(runestimate)
     console.log(formData);
+
     // Reset the form after submission (optional)
     setFormData({
       customerName: "",
