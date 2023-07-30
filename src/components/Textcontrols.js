@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { jsPDF } from "jspdf";
+import { applyPlugin } from "jspdf-autotable";
+import "jspdf-autotable";
+applyPlugin(jsPDF);
 
-axios.defaults.baseURL="http://localhost:4000/"
-
-
+axios.defaults.baseURL = "http://localhost:4000/";
 
 export default function Textcontrols() {
-  const [despdataList,setdespDataList]= useState([])
+  const [despdataList, setdespDataList] = useState([]);
   // const [eamt,seteAmtList]= useState([])
 
-  const getDespData = async()=> {
-    const despdata = await axios.get("/quality/")
-    console.log(despdata)
-    if(despdata.data.success){
-      setdespDataList(despdata.data.data)
-    } 
-  }
-  useEffect(()=>{
-    getDespData()
-    
-  },[])
-  console.log(despdataList)
+  const getDespData = async () => {
+    const despdata = await axios.get("/quality/");
+    console.log(despdata);
+    if (despdata.data.success) {
+      setdespDataList(despdata.data.data);
+    }
+  };
+  useEffect(() => {
+    getDespData();
+  }, []);
+  console.log(despdataList);
 
   // const getEamt = async()=> {
   //   const eamtdata = await axios.post("/estimate/",formData)
   //   console.log(eamtdata)
   //   if(eamtdata.data.success){
   //     seteAmtList(eamtdata.data.data)
-  //   } 
+  //   }
   //   console.log(eamt)
   // }
   // useEffect(()=>{
   //   getEamt()
-    
+
   // },[])
   // console.log(eamt)
-  
 
   const [formData, setFormData] = useState({
     customerName: "",
@@ -57,13 +57,13 @@ export default function Textcontrols() {
       [name]: value,
     });
   };
-  
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Here you can handle form submission, for example, send the data to the server or perform any other actions.
-    const runestimate = await axios.post("/estimate/",formData);
-    console.log(runestimate)
+    const runestimate = await axios.post("/estimate/", formData);
+
+    console.log(runestimate);
     console.log(formData);
 
     // Reset the form after submission (optional)
@@ -100,7 +100,7 @@ export default function Textcontrols() {
           />
         </div>
         <div className="form-group col-md-6">
-          <label className="py-2"htmlFor="address">
+          <label className="py-2" htmlFor="address">
             <strong>Address</strong>
           </label>
           <textarea
@@ -161,7 +161,7 @@ export default function Textcontrols() {
           <label htmlFor="numOfFloors">
             <strong>Number of Floors</strong>
           </label>
-            <select
+          <select
             className="form-control"
             id="numOfFloors"
             name="numOfFloors"
@@ -169,7 +169,9 @@ export default function Textcontrols() {
             onChange={handleChange}
             required
           >
-            <option value="" disabled>Select Number of Floors</option>
+            <option value="" disabled>
+              Select Number of Floors
+            </option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -189,7 +191,9 @@ export default function Textcontrols() {
             onChange={handleChange}
             required
           >
-            <option value="" disabled>Select project type</option>
+            <option value="" disabled>
+              Select project type
+            </option>
             <option value="Residential">Residential</option>
             <option value="Commercial">Commercial</option>
             <option value="Industrial">Industrial</option>
@@ -207,22 +211,22 @@ export default function Textcontrols() {
             onChange={handleChange}
             required
           >
-            <option value="" disabled>Select Construction Quality</option>
-            { despdataList[0] ? (
-              despdataList.map((el)=>{
+            <option value="" disabled>
+              Select Construction Quality
+            </option>
+            {despdataList[0] ? (
+              despdataList.map((el) => {
                 return (
-                  <option key={el._id} value={el.name}>{el.name}</option>
-                )
-              }))
-              : (
-                // <option value="Standard">Standard</option>
-                <option value="Premium">Premium</option>
-                // <option value="Luxury">Luxury</option>
-              )
-
-            }
-            
-            
+                  <option key={el._id} value={el.name}>
+                    {el.name}
+                  </option>
+                );
+              })
+            ) : (
+              // <option value="Standard">Standard</option>
+              <option value="Premium">Premium</option>
+              // <option value="Luxury">Luxury</option>
+            )}
           </select>
         </div>
         <div className="form-group col-md-6">
@@ -259,9 +263,4 @@ export default function Textcontrols() {
       </form>
     </div>
   );
-};
-
-
-
-
-
+}
