@@ -1,8 +1,54 @@
-import { Fragment } from 'react';
-import OwlCarousel from 'react-owl-carousel';
-import Title from '../common/Title';
+import { Fragment, useEffect, useState } from "react";
+import OwlCarousel from "react-owl-carousel";
+import { Container, Row, Col } from "reactstrap";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+import "./Features.css";
+import Title from "../common/Title";
 
 const Features = () => {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const slides = [
+    {
+      logo: "fi-cwsuxl-check",
+      title: "User Friendly",
+      content: "Estimator is extremely user friendly with few input parameters",
+    },
+    {
+      logo: "fi-xnsuxl-accounting-solid",
+      title: "Accuracy",
+      content:
+        "Estimates generated have high accuracy with all necessary checks",
+    },
+    {
+      logo: "fi-cwsuhl-clock-wide",
+      title: "Time Saving",
+      content: "It saves time, has estimate is generatedin just a few seconds",
+    },
+    {
+      logo: "fi-xnsuxl-rupee",
+      title: "Cost Effective",
+      content: "It saves lots of man hours and indirectly is cost effective",
+    },
+  ];
+
+  const handleSlideChange = (event) => {
+    setActiveSlide(event.item.index);
+  };
+
+  useEffect(() => {
+    // Automatically switch slides every 5 seconds
+    const timer = setInterval(() => {
+      const nextSlide = (activeSlide + 1) % slides.length;
+      setActiveSlide(nextSlide);
+    }, 2000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [activeSlide, slides.length]);
+
   const options = {
     loop: true,
     center: true,
@@ -28,10 +74,51 @@ const Features = () => {
 
   return (
     <Fragment>
-      <div className="container mt-2">
+      <div className="container mt-2 ">
         <Title title="Awesome Features" />
 
-        <OwlCarousel
+        <Container className="mt-2">
+          <Row>
+            <Col>
+              <OwlCarousel
+                className="owl-theme"
+                items={2}
+                loop
+                nav={"true"}
+                dots={"true"}
+                center={"true"}
+                onChanged={handleSlideChange}
+                responsive={{
+                  0: {
+                    items: 1,
+                  },
+                  576: {
+                    items: 2,
+                  },
+                  768: {
+                    items: 3,
+                  },
+                  992: {
+                    items: 3,
+                  },
+                }}
+              >
+                {slides.map((slide, index) => (
+                  <div key={index} className="carousel-item">
+                    <div className="h-100 carousel-box shadow-box">
+                      <i className={`Logo ${index + 1}`}></i>
+
+                      <h3>{slide.title}</h3>
+                      <p>{slide.content}</p>
+                    </div>
+                  </div>
+                ))}
+              </OwlCarousel>
+            </Col>
+          </Row>
+        </Container>
+
+        {/* <OwlCarousel
           className="owl-carousel features-carousel owl-theme "
           loop
           margin={10}
@@ -39,7 +126,7 @@ const Features = () => {
           {...options}
         >
           <div class="item">
-            <div class="feature-item">
+            <div className="carousel-content">
               <div class="icon">
                 <i class="fas fa-check"></i>
               </div>
@@ -72,7 +159,7 @@ const Features = () => {
             <h3>Cost Effective</h3>
             <p>It saves lots of man hours and indirectly is cost effective</p>
           </div>
-        </OwlCarousel>
+        </OwlCarousel> */}
       </div>
     </Fragment>
   );

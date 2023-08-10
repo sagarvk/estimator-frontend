@@ -1,5 +1,4 @@
 import React, { Component, useState } from "react";
-import "bootstrap/dist/css/bootstrap.css";
 import {
   Collapse,
   Navbar,
@@ -26,46 +25,57 @@ import {
   Input,
   Label,
 } from "reactstrap";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+// import "./CustomNavbars.css";
 export default function CustomNavbar(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
   return (
     <div>
-      {/* <Navbar color="dark" light dark>
-        <NavbarBrand href="/">Estimator</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink href="/components/">Home</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                Features
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                Testimonals
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                Pricing
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                About Us
-              </NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar> */}
+      <div
+        className="container mt-2"
+        style={{
+          display: "block",
+          width: 550,
+          padding: 30,
+        }}
+      >
+        <Navbar
+          className="navbar"
+          fixed="top"
+          color="dark"
+          light
+          dark
+          expand="md"
+        >
+          <NavbarBrand className="navbar-brand" href="/">
+            Estimator
+          </NavbarBrand>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="mr-auto" navbar>
+              <NavItem className="nav-item">
+                <NavLink href="/components/">Home</NavLink>
+              </NavItem>
+              <NavItem className="nav-item">
+                <NavLink href="">Features</NavLink>
+              </NavItem>
+              <NavItem className="nav-item">
+                <NavLink href="">Testimonals</NavLink>
+              </NavItem>
+              <NavItem className="nav-item">
+                <NavLink href="">Pricing</NavLink>
+              </NavItem>
+              <NavItem className="nav-item">
+                <NavLink href="">About Us</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
 
-      <Nav
+      {/* <Nav
         className="navbar navbar-expand-lg bg-dark border-bottom border-bottom-dark"
         data-bs-theme="dark"
       >
@@ -120,13 +130,9 @@ export default function CustomNavbar(props) {
                 </a>
               </li>
             </ul>
-            {/* <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form> */}
           </div>
         </div>
-      </Nav>
+      </Nav> */}
     </div>
   );
 }
