@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+// import "sweetalert2/src/sweetalert2.scss";
 import "./Textcontrols.css";
 import {
   Button,
@@ -18,6 +20,7 @@ axios.defaults.baseURL = "http://localhost:4000/";
 
 export default function TextControls() {
   const [despdataList, setdespDataList] = useState([]);
+  const [ptypedataList, setptypeDataList] = useState([]);
   const [modal, setModal] = useState(false);
 
   let estimateamount = [];
@@ -28,9 +31,13 @@ export default function TextControls() {
 
   const toggle = () => setModal(!modal);
 
+  // componentDidMount(){
+
+  // }
+
   const getDespData = async () => {
-    const despdata = await axios.get("/quality/");
-    console.log(despdata);
+    const despdata = await axios.get("/quality/", formData);
+    console.log(despdata.data.data);
     if (despdata.data.success) {
       setdespDataList(despdata.data.data);
     }
@@ -39,6 +46,17 @@ export default function TextControls() {
     getDespData();
   }, []);
   console.log(despdataList);
+
+  const getPtypeData = async () => {
+    const ptypedata = await axios.get("/ptype/");
+    console.log(ptypedata);
+    if (ptypedata.data.success) {
+      setptypeDataList(ptypedata.data.data);
+    }
+  };
+  useEffect(() => {
+    getPtypeData();
+  }, []);
 
   const [formData, setFormData] = useState({
     customerName: "",
@@ -62,6 +80,7 @@ export default function TextControls() {
   };
 
   const handOpenRazorpay = (data) => {
+    let payamt = Number(data.amount);
     const options = {
       key: "rzp_test_QLwMUVF4PpHZIS",
       amount: Number(data.amount),
@@ -72,11 +91,36 @@ export default function TextControls() {
       send_sms_hash: true,
       handler: function (response) {
         console.log(response, 34);
+        let roid = response.razorpay_order_id;
+        let rpid = response.razorpay_payment_id;
 
         axios
           .post("/estimate/payverify", { response: response })
           .then((res) => {
             console.log(res, 37);
+            if (res.data.message === "Valid Sign") {
+              axios
+                .post("/client/addclient", {
+                  response: response,
+                  formData,
+                  rorder_id: roid,
+                  rpayment_id: rpid,
+                  pay_amt: payamt,
+                })
+                .then((res) => {
+                  console.log(res, 37);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } else {
+              // const MySwal = withReactContent(Swal);
+              // MySwal.fire({
+              //   title: <strong>Payment Failed</strong>,
+              //   html: <i>Payment Failed!!! Pls try again.</i>,
+              //   icon: "error",
+              // });
+            }
 
             // Reset the form after submission (optional)
             setFormData({
@@ -266,9 +310,19 @@ export default function TextControls() {
                 <option value="" disabled>
                   Select project type
                 </option>
-                <option value="Residential">Residential</option>
-                <option value="Commercial">Commercial</option>
-                <option value="Industrial">Industrial</option>
+                {ptypedataList[0] ? (
+                  ptypedataList.map((ele) => {
+                    return (
+                      <option key={ele._id} value={ele.pname}>
+                        {ele.pname}
+                      </option>
+                    );
+                  })
+                ) : (
+                  // <option value="Standard">Standard</option>
+                  <option value="Premium">Premium</option>
+                  // <option value="Luxury">Luxury</option>
+                )}
               </select>
             </div>
             <div className="form-group col-md-6">
@@ -380,10 +434,10 @@ export default function TextControls() {
             </Container>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={handlePayment}>
+            <Button color="success" size="lg" onClick={handlePayment}>
               Pay Now & Download
             </Button>{" "}
-            <Button color="secondary" onClick={toggle}>
+            <Button color="danger" size="lg" onClick={toggle}>
               Cancel
             </Button>
           </ModalFooter>
