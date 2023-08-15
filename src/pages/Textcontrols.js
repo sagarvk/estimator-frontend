@@ -15,6 +15,7 @@ import {
   Col,
   Form,
 } from "reactstrap";
+import fileDownload from "js-file-download";
 
 axios.defaults.baseURL = "http://localhost:4000/";
 
@@ -35,18 +36,6 @@ export default function TextControls() {
 
   // }
 
-  const getDespData = async () => {
-    const despdata = await axios.get("/quality/", formData);
-    console.log(despdata.data.data);
-    if (despdata.data.success) {
-      setdespDataList(despdata.data.data);
-    }
-  };
-  useEffect(() => {
-    getDespData();
-  }, []);
-  console.log(despdataList);
-
   const getPtypeData = async () => {
     const ptypedata = await axios.get("/ptype/");
     console.log(ptypedata);
@@ -57,6 +46,7 @@ export default function TextControls() {
   useEffect(() => {
     getPtypeData();
   }, []);
+  const [selectedptype, setSelectedptype] = useState("");
 
   const [formData, setFormData] = useState({
     customerName: "",
@@ -76,6 +66,24 @@ export default function TextControls() {
     setFormData({
       ...formData,
       [name]: value,
+    });
+    setSelectedptype(e.target.value);
+    const despdata = axios.post("/quality/", formData).then((response) => {
+      console.log(response.data);
+      setdespDataList(response.data.data);
+    });
+  };
+  const handlePtype = (e) => {
+    setSelectedptype(e.target.value);
+    console.log(selectedptype);
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    axios.post("/quality/", formData).then((response) => {
+      console.log(response.data);
+      setdespDataList(response.data.data);
     });
   };
 
@@ -99,20 +107,35 @@ export default function TextControls() {
           .then((res) => {
             console.log(res, 37);
             if (res.data.message === "Valid Sign") {
-              axios
-                .post("/client/addclient", {
-                  response: response,
-                  formData,
-                  rorder_id: roid,
-                  rpayment_id: rpid,
-                  pay_amt: payamt,
-                })
-                .then((res) => {
-                  console.log(res, 37);
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
+              (async () => {
+                axios
+                  .post("/estimate/", formData, {
+                    responseType: "blob",
+                    headers: { Accept: "application/pdf" },
+                  })
+                  .then((response) => {
+                    fileDownload(response.data, `${formData.customerName}.pdf`);
+                  });
+
+                console.log(response);
+              })();
+
+              (async () => {
+                await axios
+                  .post("/client/addclient", {
+                    response: response,
+                    formData,
+                    rorder_id: roid,
+                    rpayment_id: rpid,
+                    pay_amt: payamt,
+                  })
+                  .then((res) => {
+                    console.log(res, 37);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              })();
             } else {
               // const MySwal = withReactContent(Swal);
               // MySwal.fire({
@@ -304,7 +327,8 @@ export default function TextControls() {
                 id="projectType"
                 name="projectType"
                 value={formData.projectType}
-                onChange={handleChange}
+                onChange={handlePtype}
+                onClick={handlePtype}
                 required
               >
                 <option value="" disabled>
@@ -319,9 +343,7 @@ export default function TextControls() {
                     );
                   })
                 ) : (
-                  // <option value="Standard">Standard</option>
                   <option value="Premium">Premium</option>
-                  // <option value="Luxury">Luxury</option>
                 )}
               </select>
             </div>
@@ -335,12 +357,13 @@ export default function TextControls() {
                 name="constructionQuality"
                 value={formData.constructionQuality}
                 onChange={handleChange}
+                // onClick={handleChange}
                 required
               >
                 <option value="" disabled>
                   Select Construction Quality
                 </option>
-                {despdataList[0] ? (
+                {selectedptype && despdataList[0] ? (
                   despdataList.map((el) => {
                     return (
                       <option key={el._id} value={el.name}>
@@ -349,9 +372,7 @@ export default function TextControls() {
                     );
                   })
                 ) : (
-                  // <option value="Standard">Standard</option>
                   <option value="Premium">Premium</option>
-                  // <option value="Luxury">Luxury</option>
                 )}
               </select>
             </div>
