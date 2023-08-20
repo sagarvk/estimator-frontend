@@ -23,6 +23,7 @@
     "reactstrap": "^9.2.0",
     "start": "^5.1.0",
     "sweetalert2": "^11.7.22",
+    "typed.js": "^2.0.16",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

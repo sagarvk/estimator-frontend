@@ -2,7 +2,16 @@ import React from "react";
 export default function Footers() {
   return (
     <div className="container">
-      <footer className="py-3 my-4" data-bs-theme="dark">
+      <footer
+        style={{
+          display: "flex",
+          margin: "25px",
+          alignItems: "center",
+          backgroundColor: "#6c55ff",
+          height: "50px",
+          justifyContent: "center",
+        }}
+      >
         {/* <ul className="nav justify-content-center border-bottom pb-3 mb-3">
           <li className="nav-item">
             <a href="" className="nav-link px-2 ">
@@ -30,7 +39,9 @@ export default function Footers() {
             </a>
           </li>
         </ul> */}
-        <p className="text-center">&copy; 2023 Company, Inc</p>
+        <h6 className="text-center" style={{ color: "white" }}>
+          &copy; 2023 Company, Inc
+        </h6>
       </footer>
     </div>
   );

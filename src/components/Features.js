@@ -33,61 +33,64 @@ const Features = () => {
     },
   ];
 
-  const handleSlideChange = (event) => {
-    setActiveSlide(event.item.index);
-  };
+  // const handleSlideChange = (event) => {
+  //   setActiveSlide(event.item.index);
+  // };
 
-  useEffect(() => {
-    // Automatically switch slides every 5 seconds
-    const timer = setInterval(() => {
-      const nextSlide = (activeSlide + 1) % slides.length;
-      setActiveSlide(nextSlide);
-    }, 2000);
+  // useEffect(() => {
+  //   // Automatically switch slides every 5 seconds
+  //   const timer = setInterval(() => {
+  //     const nextSlide = (activeSlide + 1) % slides.length;
+  //     setActiveSlide(nextSlide);
+  //   }, 200);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [activeSlide, slides.length]);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, [activeSlide, slides.length]);
 
-  const options = {
-    loop: true,
-    center: true,
-    items: 3,
-    margin: 0,
-    autoplay: true,
-    dots: true,
-    autoplayTimeout: 8500,
-    smartSpeed: 450,
-    nav: false,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      600: {
-        items: 3,
-      },
-      1000: {
-        items: 3,
-      },
-    },
-  };
+  // const options = {
+  //   loop: true,
+  //   center: true,
+  //   items: 3,
+  //   margin: 0,
+  //   autoplay: true,
+  //   dots: true,
+  //   autoplayTimeout: 8500,
+  //   smartSpeed: 450,
+  //   nav: false,
+  //   responsive: {
+  //     0: {
+  //       items: 1,
+  //     },
+  //     600: {
+  //       items: 3,
+  //     },
+  //     1000: {
+  //       items: 3,
+  //     },
+  //   },
+  // };
 
   return (
     <Fragment>
       <div className="container mt-2 ">
         <Title title="Awesome Features" />
 
-        <Container className="mt-2">
+        <Container className="features">
           <Row>
             <Col>
               <OwlCarousel
                 className="owl-theme"
                 items={2}
                 loop
-                nav={"true"}
-                dots={"true"}
-                center={"true"}
-                onChanged={handleSlideChange}
+                nav={false}
+                dots={true}
+                center={true}
+                autoplay={true}
+                autoplayTimeout={5000}
+                smartSpeed={300}
+                lazyLoad={true}
                 responsive={{
                   0: {
                     items: 1,

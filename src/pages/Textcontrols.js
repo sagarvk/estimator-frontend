@@ -1,5 +1,6 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState, Component, useRef } from "react";
 import axios from "axios";
+import Typed from "typed.js";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 // import "sweetalert2/src/sweetalert2.scss";
 import "./Textcontrols.css";
@@ -14,6 +15,8 @@ import {
   Label,
   Col,
   Form,
+  FormGroup,
+  Input,
 } from "reactstrap";
 import fileDownload from "js-file-download";
 
@@ -32,9 +35,27 @@ export default function TextControls() {
 
   const toggle = () => setModal(!modal);
 
-  // componentDidMount(){
+  const el = useRef(null);
+  useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: [
+        "Instant Estimate Download",
+        "Accurate Calculations",
+        "Digitally Signed Estimate",
+        "With Latest SOR",
+      ],
+      startDelay: 200,
+      typeSpeed: 30,
+      backSpeed: 30,
+      backDelay: 500,
+      loop: true,
+    });
 
-  // }
+    // Destroying
+    return () => {
+      typed.destroy();
+    };
+  }, []);
 
   const getPtypeData = async () => {
     const ptypedata = await axios.get("/ptype/");
@@ -108,16 +129,42 @@ export default function TextControls() {
             console.log(res, 37);
             if (res.data.message === "Valid Sign") {
               (async () => {
-                axios
+                await axios
                   .post("/estimate/", formData, {
                     responseType: "blob",
                     headers: { Accept: "application/pdf" },
                   })
-                  .then((response) => {
-                    fileDownload(response.data, `${formData.customerName}.pdf`);
-                  });
+                  .then((responsefile) => {
+                    // Create a Blob from the response data
+                    const pdfBlob = new Blob([responsefile.data], {
+                      type: "application/pdf",
+                    });
 
-                console.log(response);
+                    // Create a temporary URL for the Blob
+                    const furl = window.URL.createObjectURL(pdfBlob);
+
+                    // Create a temporary <a> element to trigger the download
+                    const tempLink = document.createElement("a");
+                    tempLink.href = furl;
+                    tempLink.setAttribute(
+                      "download",
+                      `Estimate_${formData.customerName}.pdf`
+                    ); // Set the desired filename for the downloaded file
+
+                    // Append the <a> element to the body and click it to trigger the download
+                    document.body.appendChild(tempLink);
+                    tempLink.click();
+
+                    // Clean up the temporary elements and URL
+                    document.body.removeChild(tempLink);
+                    window.URL.revokeObjectURL(furl);
+
+                    // fileDownload(
+                    //   responsefile.data,
+                    //   `${formData.customerName}.pdf`
+                    // );
+                    // responsefile.data = "";
+                  });
               })();
 
               (async () => {
@@ -222,193 +269,240 @@ export default function TextControls() {
   return (
     <div>
       <div className="containerbox">
-        <div className="container mt-2 col-md-12">
-          <Form onSubmit={handleSubmit}>
-            <div className="form-group col-md-6">
-              <label className="my-2" htmlFor="customerName">
-                <strong>Customer Name</strong>
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="customerName"
-                name="customerName"
-                value={formData.customerName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group col-md-6">
-              <label className="py-2" htmlFor="address">
-                <strong>Address</strong>
-              </label>
-              <textarea
-                className="form-control"
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                rows="4"
-                required
-              />
-            </div>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label className="py-2" htmlFor="plotLength">
-                  <strong>Plot Length (in ft.)</strong>
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="plotLength"
-                  name="plotLength"
-                  value={formData.plotLength}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="form-group col-md-6">
-                <label htmlFor="plotWidth">
-                  <strong>Plot Width (in ft.)</strong>
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="plotWidth"
-                  name="plotWidth"
-                  value={formData.plotWidth}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-group col-md-6">
-              <label htmlFor="totalBuiltupArea">
-                <strong>Total Builtup Area (in sq.ft.)</strong>
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                id="totalBuiltupArea"
-                name="totalBuiltupArea"
-                value={formData.totalBuiltupArea}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group col-md-6">
-              <label htmlFor="numOfFloors">
-                <strong>Number of Floors</strong>
-              </label>
-              <select
-                className="form-control"
-                id="numOfFloors"
-                name="numOfFloors"
-                value={formData.numOfFloors}
-                onChange={handleChange}
-                required
-              >
-                <option value="" disabled>
-                  Select Number of Floors
-                </option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </div>
-            <div className="form-group col-md-6">
-              <label htmlFor="projectType">
-                <strong>Project Type</strong>
-              </label>
-              <select
-                className="form-control"
-                id="projectType"
-                name="projectType"
-                value={formData.projectType}
-                onChange={handlePtype}
-                onClick={handlePtype}
-                required
-              >
-                <option value="" disabled>
-                  Select project type
-                </option>
-                {ptypedataList[0] ? (
-                  ptypedataList.map((ele) => {
-                    return (
-                      <option key={ele._id} value={ele.pname}>
-                        {ele.pname}
-                      </option>
-                    );
-                  })
-                ) : (
-                  <option value="Premium">Premium</option>
-                )}
-              </select>
-            </div>
-            <div className="form-group col-md-6">
-              <label htmlFor="constructionQuality">
-                <strong>Construction Quality</strong>
-              </label>
-              <select
-                className="form-control"
-                id="constructionQuality"
-                name="constructionQuality"
-                value={formData.constructionQuality}
-                onChange={handleChange}
-                // onClick={handleChange}
-                required
-              >
-                <option value="" disabled>
-                  Select Construction Quality
-                </option>
-                {selectedptype && despdataList[0] ? (
-                  despdataList.map((el) => {
-                    return (
-                      <option key={el._id} value={el.name}>
-                        {el.name}
-                      </option>
-                    );
-                  })
-                ) : (
-                  <option value="Premium">Premium</option>
-                )}
-              </select>
-            </div>
-            <div className="form-group col-md-6">
-              <label htmlFor="mobileNo">
-                <strong>Mobile Number</strong>
-              </label>
-              <input
-                type="tel"
-                className="form-control"
-                id="mobileNo"
-                name="mobileNo"
-                value={formData.mobileNo}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group col-md-6">
-              <label htmlFor="mailId">
-                <strong>Mail id</strong>
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="mailId"
-                name="mailId"
-                value={formData.mailId}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit" className="btn btn-primary my-3">
-              Generate Estimate
-            </button>
-          </Form>
-        </div>
+        <Container className="main-container">
+          <Row>
+            <Col className="main-img" md="6">
+              <Row>
+                <h1>
+                  Welcome to <span style={{ color: "blue" }}>EstimatorPro</span>
+                </h1>
+                <h1>
+                  Get <span ref={el}></span>{" "}
+                </h1>
+                <p>
+                  Enter the details, make payment and get your construction
+                  estimate instantly downloaded as well as on mail. The estimate
+                  generated is as per industry standards with latest SOR.
+                </p>
+              </Row>
+            </Col>
+            <Col className="main-form">
+              <Form onSubmit={handleSubmit}>
+                <h3 style={{ textAlign: "center" }}>Estimate Details</h3>
+                <FormGroup>
+                  <Label className="my-2" htmlFor="customerName">
+                    <strong>Customer Name</strong>
+                  </Label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    id="customerName"
+                    name="customerName"
+                    value={formData.customerName}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label className="py-2" htmlFor="address">
+                    <strong>Address</strong>
+                  </Label>
+                  <Input
+                    className="form-control"
+                    type="textarea"
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    rows="4"
+                    required
+                  />
+                </FormGroup>
+
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label className="" htmlFor="plotLength">
+                        <strong>Plot Length (in ft.)</strong>
+                      </Label>
+                      <Input
+                        type="number"
+                        className="form-control"
+                        id="plotLength"
+                        name="plotLength"
+                        value={formData.plotLength}
+                        onChange={handleChange}
+                        required
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label htmlFor="plotWidth">
+                        <strong>Plot Width (in ft.)</strong>
+                      </Label>
+                      <Input
+                        type="number"
+                        className="form-control"
+                        id="plotWidth"
+                        name="plotWidth"
+                        value={formData.plotWidth}
+                        onChange={handleChange}
+                        required
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label htmlFor="totalBuiltupArea">
+                        <strong>Total Builtup Area (in sq.ft.)</strong>
+                      </Label>
+                      <Input
+                        type="number"
+                        className="form-control"
+                        id="totalBuiltupArea"
+                        name="totalBuiltupArea"
+                        value={formData.totalBuiltupArea}
+                        onChange={handleChange}
+                        required
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label htmlFor="numOfFloors">
+                        <strong>Number of Floors</strong>
+                      </Label>
+                      <Input
+                        type="select"
+                        className="form-control"
+                        id="numOfFloors"
+                        name="numOfFloors"
+                        value={formData.numOfFloors}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="" disabled>
+                          Select Number of Floors
+                        </option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label htmlFor="projectType">
+                        <strong>Project Type</strong>
+                      </Label>
+                      <Input
+                        className="form-control"
+                        type="select"
+                        id="projectType"
+                        name="projectType"
+                        value={formData.projectType}
+                        onChange={handlePtype}
+                        onClick={handlePtype}
+                        required
+                      >
+                        <option value="" disabled>
+                          Select project type
+                        </option>
+                        {ptypedataList[0] ? (
+                          ptypedataList.map((ele) => {
+                            return (
+                              <option key={ele._id} value={ele.pname}>
+                                {ele.pname}
+                              </option>
+                            );
+                          })
+                        ) : (
+                          <option value="Premium">Premium</option>
+                        )}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label htmlFor="constructionQuality">
+                        <strong>Construction Quality</strong>
+                      </Label>
+                      <Input
+                        className="form-control"
+                        type="select"
+                        id="constructionQuality"
+                        name="constructionQuality"
+                        value={formData.constructionQuality}
+                        onChange={handleChange}
+                        // onClick={handleChange}
+                        required
+                      >
+                        <option value="" disabled>
+                          Select Construction Quality
+                        </option>
+                        {selectedptype && despdataList[0] ? (
+                          despdataList.map((el) => {
+                            return (
+                              <option key={el._id} value={el.name}>
+                                {el.name}
+                              </option>
+                            );
+                          })
+                        ) : (
+                          <option value="Premium">Premium</option>
+                        )}
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label htmlFor="mobileNo">
+                        <strong>Mobile Number</strong>
+                      </Label>
+                      <Input
+                        type="tel"
+                        className="form-control"
+                        id="mobileNo"
+                        name="mobileNo"
+                        value={formData.mobileNo}
+                        onChange={handleChange}
+                        required
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label htmlFor="mailId">
+                        <strong>Mail id</strong>
+                      </Label>
+                      <Input
+                        type="email"
+                        className="form-control"
+                        id="mailId"
+                        name="mailId"
+                        value={formData.mailId}
+                        onChange={handleChange}
+                        required
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Button type="submit" color="primary" className="button" block>
+                  Generate Estimate
+                </Button>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
         <Modal
           isOpen={modal}
           toggle={toggle}

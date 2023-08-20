@@ -3,7 +3,9 @@ const Title = ({ title }) => (
     <div className="row">
       <div className="col-lg-12">
         <div className="section-title ">
-          <h2>{title}</h2>
+          <h2>
+            <b>{title}</b>
+          </h2>
         </div>
       </div>
     </div>

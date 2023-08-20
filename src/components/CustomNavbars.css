@@ -16,7 +16,7 @@
 	text-transform: capitalize;
 } */
 .nav-item{
-	margin-left: 40px;
+	
 	
 }
 body{
@@ -28,30 +28,39 @@ body{
 	line-height: 1.5;
 }
 .navbar{
-	background-color: transparent;
+	background-color: #6c55ff !important;
 	padding:10px 0px;
 	transition: all 0.5s ease;
+	
 	
 }
 .navbar.navbar-shrink{
 	box-shadow: 0 10px 10px rgba(0,0,0,0.1);
 	background-color: var(--main-color);
-	padding: 10px 0;
+	padding: 10px 10px;
 	
 }
 .navbar > .container{
 	padding:0 10px;
+	width: 100 px !important;
+	
 }
 .navbar .navbar-brand{
 	font-size: 30px;
 	font-weight: 500;
 	text-transform: capitalize;
+	margin: auto;
+	margin-left: 200px;
+	
 }
+
 .navbar .nav-item{
 	font-family: 'Poppins', sans-serif;
 	font-size: 16px;
 	font-weight: 400;
 	margin-left: 40px;
+	padding: 10px 10px;
+	
 	
 }
 .navbar .nav-item .nav-link{
@@ -76,6 +85,10 @@ body{
 .navbar .nav-item .nav-link.active::before,
 .navbar .nav-item .nav-link:hover::before{
 	transform: scale(1);
+}
+.navbar .nav{
+	
+	margin-right: 150px;
 }
 .container{
 	margin-left: auto;

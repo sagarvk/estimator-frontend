@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownItem,
   NavbarText,
+  Container,
 } from "reactstrap";
 
 import {
@@ -25,21 +26,17 @@ import {
   Input,
   Label,
 } from "reactstrap";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./CustomNavbars.css";
+import "./CustomNavbars.css";
 export default function CustomNavbar(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
   return (
     <div>
-      <div
-        className="container mt-2"
-        style={{
-          display: "block",
-          width: 550,
-          padding: 30,
-        }}
+      <Container
+        style={{ alignContent: "center", textAlign: "center", display: "flex" }}
       >
         <Navbar
           className="navbar"
@@ -54,12 +51,9 @@ export default function CustomNavbar(props) {
           </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
+            <Nav className="ms-auto nav" navbar>
               <NavItem className="nav-item">
                 <NavLink href="/components/">Home</NavLink>
-              </NavItem>
-              <NavItem className="nav-item">
-                <NavLink href="">Features</NavLink>
               </NavItem>
               <NavItem className="nav-item">
                 <NavLink href="">Testimonals</NavLink>
@@ -70,10 +64,25 @@ export default function CustomNavbar(props) {
               <NavItem className="nav-item">
                 <NavLink href="">About Us</NavLink>
               </NavItem>
+              <NavItem className="nav-item">
+                <NavLink href="">Contact Us</NavLink>
+              </NavItem>
+              <NavItem className="nav-item">
+                <NavLink href="">Privacy Policy</NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
-      </div>
+      </Container>
+
+      <div
+        className="container mt-2"
+        style={{
+          display: "block",
+          width: 550,
+          padding: 30,
+        }}
+      ></div>
 
       {/* <Nav
         className="navbar navbar-expand-lg bg-dark border-bottom border-bottom-dark"
