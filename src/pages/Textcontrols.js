@@ -135,6 +135,7 @@ export default function TextControls() {
                     headers: { Accept: "application/pdf" },
                   })
                   .then((responsefile) => {
+                    console.log(responsefile.data);
                     // Create a Blob from the response data
                     const pdfBlob = new Blob([responsefile.data], {
                       type: "application/pdf",
@@ -165,9 +166,7 @@ export default function TextControls() {
                     // );
                     // responsefile.data = "";
                   });
-              })();
 
-              (async () => {
                 await axios
                   .post("/client/addclient", {
                     response: response,
