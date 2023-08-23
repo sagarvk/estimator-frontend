@@ -29,6 +29,11 @@ const PaymentModal = ({ isOpen, close, toggle, formData, estimatedAmount }) => {
       setLoading(false);
       close();
     };
+    options.modal = {
+      ondismiss: () => {
+        setLoading(false);
+      },
+    };
     const razorPay = new window.Razorpay(options);
     razorPay.open();
   };
