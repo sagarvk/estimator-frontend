@@ -1,15 +1,16 @@
-import { Fragment, useEffect, useRef } from 'react';
-import Typed from 'typed.js';
+import { Fragment, useEffect, useRef } from "react";
+import Typed from "typed.js";
 
+import "./Legend.css";
 const Legend = () => {
   const el = useRef(null);
   useEffect(() => {
     const typed = new Typed(el.current, {
       strings: [
-        'Instant Estimate Download',
-        'Accurate Calculations',
-        'Digitally Signed Estimate',
-        'With Latest SOR',
+        "Instant Estimate Download",
+        "Accurate Calculations",
+        "Digitally Signed Estimate",
+        "With Latest SOR",
       ],
       startDelay: 200,
       typeSpeed: 30,
@@ -25,13 +26,13 @@ const Legend = () => {
   }, []);
   return (
     <Fragment>
-      <h1>
-        Welcome to <span style={{ color: 'blue' }}>EstimatorPro</span>
+      <h1 style={{ fontStyle: "bold" }}>
+        Welcome to <span style={{ color: "#6c55ff" }}>EstimatorPro</span>
       </h1>
-      <h1>
-        Get <span ref={el}></span>{' '}
+      <h1 style={{ fontStyle: "bold" }}>
+        Get <span style={{ color: "#6c55ff" }} ref={el}></span>{" "}
       </h1>
-      <p>
+      <p className="detailed">
         Enter the details, make payment and get your construction estimate
         instantly downloaded as well as on mail. The estimate generated is as
         per industry standards with latest SOR.

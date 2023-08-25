@@ -8,6 +8,10 @@
     display: flex;
     justify-content: center;
   }
+
+  .owl-dots{
+    width: 500px;
+  }
   
   .carousel-box {
     margin: 10px;
