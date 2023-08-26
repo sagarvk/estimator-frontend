@@ -8,15 +8,23 @@ import {
   ModalFooter,
   ModalHeader,
   Row,
-} from 'reactstrap';
-import { useState } from 'react';
-import { createOrder, getRazorPayOptions, razorPayHandler } from './utils';
-import loadingIndicator from '../loading.gif';
-import styles from './PaymentModal.module.css';
+} from "reactstrap";
+import { useState } from "react";
+import { createOrder, getRazorPayOptions, razorPayHandler } from "./utils";
+import loadingIndicator from "../loading.gif";
+
+import styles from "./PaymentModal.module.css";
 
 const FEES = 499;
 
-const PaymentModal = ({ isOpen, close, toggle, formData, estimatedAmount }) => {
+const PaymentModal = ({
+  isOpen,
+  close,
+  toggle,
+  formData,
+  estimatedAmount,
+  resetForm,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const handlePayment = async (e) => {
@@ -27,6 +35,7 @@ const PaymentModal = ({ isOpen, close, toggle, formData, estimatedAmount }) => {
     options.handler = async function (response) {
       await razorPayHandler(response, order, formData);
       setLoading(false);
+      resetForm();
       close();
     };
     options.modal = {
@@ -97,7 +106,7 @@ const PaymentModal = ({ isOpen, close, toggle, formData, estimatedAmount }) => {
           disabled={loading}
         >
           Pay Now & Download
-        </Button>{' '}
+        </Button>{" "}
         <Button color="danger" size="lg" onClick={close} disabled={loading}>
           Cancel
         </Button>

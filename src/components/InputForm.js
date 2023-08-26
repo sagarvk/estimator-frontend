@@ -84,6 +84,7 @@ const InputForm = () => {
 
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
+  const resetForm = () => setFormState(config.formState);
 
   return (
     <Fragment>
@@ -177,6 +178,7 @@ const InputForm = () => {
         isOpen={isOpen}
         close={close}
         estimatedAmount={estimatedAmount}
+        resetForm={resetForm}
       />
     </Fragment>
   );
