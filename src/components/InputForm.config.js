@@ -8,7 +8,7 @@ export const formState = {
   projectType: "",
   constructionQuality: "",
   mobileNo: "",
-  mailId: "someclient@example.com",
+  mailId: "",
 };
 
 export const customerName = {
