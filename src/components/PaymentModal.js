@@ -16,7 +16,14 @@ import styles from './PaymentModal.module.css';
 
 const FEES = 499;
 
-const PaymentModal = ({ isOpen, close, toggle, formData, estimatedAmount }) => {
+const PaymentModal = ({
+  isOpen,
+  close,
+  toggle,
+  formData,
+  estimatedAmount,
+  resetForm,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const handlePayment = async (e) => {
@@ -27,6 +34,7 @@ const PaymentModal = ({ isOpen, close, toggle, formData, estimatedAmount }) => {
     options.handler = async function (response) {
       await razorPayHandler(response, order, formData);
       setLoading(false);
+      resetForm();
       close();
     };
     options.modal = {

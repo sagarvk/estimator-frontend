@@ -1,13 +1,13 @@
-import { useState, useEffect, Fragment } from "react";
-import { Row, Col, Form, Button } from "reactstrap";
+import { useState, useEffect, Fragment } from 'react';
+import { Row, Col, Form, Button } from 'reactstrap';
 
-import * as config from "./InputForm.config";
-import axios from "axios";
-import Field from "../common/Field";
+import * as config from './InputForm.config';
+import axios from 'axios';
+import Field from '../common/Field';
 
-import "./InputForm.module.css";
-import PaymentModal from "./PaymentModal";
-import { getEstimateAmount } from "./utils";
+import './InputForm.module.css';
+import PaymentModal from './PaymentModal';
+import { getEstimateAmount } from './utils';
 
 const InputForm = () => {
   const [formState, setFormState] = useState(config.formState);
@@ -18,8 +18,8 @@ const InputForm = () => {
 
   useEffect(() => {
     async function getData() {
-      const projectTypes = await axios.get("/ptype");
-      const qualities = await axios.get("/quality");
+      const projectTypes = await axios.get('/ptype');
+      const qualities = await axios.get('/quality');
 
       const { projectType, constructionQuality } = config;
       setFormFields({
@@ -50,7 +50,7 @@ const InputForm = () => {
     setFormState({
       ...formState,
       projectType,
-      constructionQuality: "",
+      constructionQuality: '',
     });
     if (projectType) {
       const applicableQualities = baseQualities.filter(
@@ -84,11 +84,12 @@ const InputForm = () => {
 
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
+  const resetForm = () => setFormState(config.formState);
 
   return (
     <Fragment>
       <Form onSubmit={handleSubmit}>
-        <h3 style={{ textAlign: "center" }}>Estimate Details</h3>
+        <h3 style={{ textAlign: 'center' }}>Estimate Details</h3>
         <Field
           {...formFields.customerName}
           handleOnChange={handleOnChange}
@@ -177,6 +178,7 @@ const InputForm = () => {
         isOpen={isOpen}
         close={close}
         estimatedAmount={estimatedAmount}
+        resetForm={resetForm}
       />
     </Fragment>
   );
