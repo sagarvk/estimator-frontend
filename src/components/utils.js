@@ -78,16 +78,15 @@ export const addClient = async (
   return client;
 };
 export const getCharges = async () => {
-  const master = await axios.get("/master/");
+  const master = await axios.post("/master/");
   return master.data.data[0].charges;
 };
 export const getKeyId = async () => {
-  const master = await axios.get("/master/");
-
+  const master = await axios.post("/master/");
   return master.data.data[0].keyid;
 };
 export const getCompanyName = async () => {
-  const master = await axios.get("/master/");
+  const master = await axios.post("/master/");
   return master.data.data[0].companyname;
 };
 export const getRazorPayOptions = (data, formData, keyid, companyname) => ({
@@ -110,8 +109,8 @@ export const handOpenRazorpay = async (data, formData) => {
     key: `${getKeyId()}`,
     amount: Number(data.amount),
     currency: data.currency,
-    name: `${getCompanyName()}`,
-    description: "ESTIMATE PAYMENT",
+    name: `${getCompanyName().toUpperCase()}`,
+    description: "PAYMENT FOR ESTIMATE",
     order_id: data.id,
     send_sms_hash: true,
     handler: async function (response) {
@@ -121,6 +120,12 @@ export const handOpenRazorpay = async (data, formData) => {
       name: formData.customerName,
       email: formData.mailId,
       contact: formData.mobileNo,
+    },
+    notes: {
+      address: "AHMEDNAGAR, MAHARASHTRA",
+    },
+    theme: {
+      color: "#6c55ff",
     },
   };
   const rzp = new window.Razorpay(options);

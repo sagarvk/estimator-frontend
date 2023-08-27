@@ -128,7 +128,7 @@ h1.demo-title a {
   text-align: center;
   color: #6c55ff;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 1px;
   background: #2A293E;
 }
@@ -156,15 +156,15 @@ h1.demo-title a {
 .pricing-table .ptable-title h2 {
   color: #ffffff;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 2px;
 }
 
 .pricing-table .ptable-price h2 {
   margin: 0;
   color: #ffffff;
-  font-size: 45px;
-  font-weight: 800;
+  font-size: 40px;
+  font-weight: 600;
   margin-left: 15px;
 }
 

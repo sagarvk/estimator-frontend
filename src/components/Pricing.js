@@ -1,8 +1,17 @@
-import React, { Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Pricing.css";
 import Title from "../common/Title";
+import { getCharges } from "./utils";
 export default function Footers() {
+  const [estimateFees, setEstimateFees] = useState(null);
+  useEffect(() => {
+    async function getData() {
+      const estimateFees = await getCharges();
+      setEstimateFees(estimateFees);
+    }
+    getData();
+  }, []);
   return (
     <Fragment>
       <Title title="Pricing" />
@@ -17,7 +26,9 @@ export default function Footers() {
               </div>
               <div className="ptable-price">
                 <h2>
-                  <small>₹</small>499<span>/ Estimate</span>
+                  <small>₹</small>
+                  {parseInt(estimateFees).toFixed(2)}
+                  <span>/ Estimate</span>
                 </h2>
               </div>
             </div>
