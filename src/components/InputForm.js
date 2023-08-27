@@ -7,7 +7,7 @@ import Field from "../common/Field";
 
 import "./InputForm.module.css";
 import PaymentModal from "./PaymentModal";
-import { getEstimateAmount } from "./utils";
+import { getCharges, getEstimateAmount } from "./utils";
 
 const InputForm = () => {
   const [formState, setFormState] = useState(config.formState);
@@ -15,6 +15,7 @@ const InputForm = () => {
   const [baseQualities, setBaseQualities] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [estimatedAmount, setEstimatedAmount] = useState(null);
+  const [estimateFees, setEstimateFees] = useState(null);
 
   useEffect(() => {
     async function getData() {
@@ -79,6 +80,8 @@ const InputForm = () => {
     e.preventDefault();
     const estimateAmount = await getEstimateAmount(formState);
     setEstimatedAmount(estimateAmount.data.amtData);
+    const estimateFees = await getCharges();
+    setEstimateFees(estimateFees);
     open();
   };
 
@@ -179,6 +182,7 @@ const InputForm = () => {
         close={close}
         estimatedAmount={estimatedAmount}
         resetForm={resetForm}
+        estimateFees={estimateFees}
       />
     </Fragment>
   );

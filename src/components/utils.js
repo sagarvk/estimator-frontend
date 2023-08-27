@@ -7,6 +7,7 @@ export const getEstimateAmount = async (formData) => {
 
 export const createOrder = async (formData) => {
   const order = await axios.post("/estimate/createorder", formData);
+
   return order.data.data;
 };
 
@@ -18,9 +19,6 @@ export const verifyPayment = async (payment) => {
 };
 
 export const getPdfFile = async (formData, orderId, payId) => {
-  // formData.push({ order_id: orderid, pay_id: payid });
-  console.log(formData);
-
   const pdfFileBlob = await axios.post(
     "/estimate/",
 
@@ -51,6 +49,7 @@ export const downloadPdf = async (pdfBlob, formData) => {
 export const razorPayHandler = async (response, data, formData) => {
   const roid = response.razorpay_order_id;
   const rpid = response.razorpay_payment_id;
+
   const paymentConfirmation = await verifyPayment(response);
 
   if (paymentConfirmation.message === "Valid Sign") {
@@ -78,12 +77,24 @@ export const addClient = async (
   });
   return client;
 };
+export const getCharges = async () => {
+  const master = await axios.get("/master/");
+  return master.data.data[0].charges;
+};
+export const getKeyId = async () => {
+  const master = await axios.get("/master/");
 
-export const getRazorPayOptions = (data, formData) => ({
-  key: "rzp_test_QLwMUVF4PpHZIS",
+  return master.data.data[0].keyid;
+};
+export const getCompanyName = async () => {
+  const master = await axios.get("/master/");
+  return master.data.data[0].companyname;
+};
+export const getRazorPayOptions = (data, formData, keyid, companyname) => ({
+  key: keyid,
   amount: Number(data.amount),
   currency: data.currency,
-  name: "COMPANY NAME",
+  name: companyname,
   description: "ESTIMATE PAYMENT",
   order_id: data.id,
   send_sms_hash: true,
@@ -96,10 +107,10 @@ export const getRazorPayOptions = (data, formData) => ({
 
 export const handOpenRazorpay = async (data, formData) => {
   const options = {
-    key: "rzp_test_QLwMUVF4PpHZIS",
+    key: `${getKeyId()}`,
     amount: Number(data.amount),
     currency: data.currency,
-    name: "COMPANY NAME",
+    name: `${getCompanyName()}`,
     description: "ESTIMATE PAYMENT",
     order_id: data.id,
     send_sms_hash: true,

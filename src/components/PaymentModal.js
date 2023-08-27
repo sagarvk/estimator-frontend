@@ -10,12 +10,16 @@ import {
   Row,
 } from "reactstrap";
 import { useState } from "react";
-import { createOrder, getRazorPayOptions, razorPayHandler } from "./utils";
+import {
+  createOrder,
+  getCompanyName,
+  getKeyId,
+  getRazorPayOptions,
+  razorPayHandler,
+} from "./utils";
 import loadingIndicator from "../loading.gif";
 
 import styles from "./PaymentModal.module.css";
-
-const FEES = 499;
 
 const PaymentModal = ({
   isOpen,
@@ -24,6 +28,7 @@ const PaymentModal = ({
   formData,
   estimatedAmount,
   resetForm,
+  estimateFees,
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +36,9 @@ const PaymentModal = ({
     e.preventDefault();
     setLoading(true);
     const order = await createOrder(formData);
-    const options = getRazorPayOptions(order, formData);
+    const keyid = await getKeyId();
+    const companyname = await getCompanyName();
+    const options = getRazorPayOptions(order, formData, keyid, companyname);
     options.handler = async function (response) {
       await razorPayHandler(response, order, formData);
       setLoading(false);
@@ -88,7 +95,7 @@ const PaymentModal = ({
               </Label>
             </Col>
             <Col>
-              <h4>{FEES.toFixed(2)}</h4>
+              <h4>{parseInt(estimateFees).toFixed(2)}</h4>
             </Col>
           </Row>
           <Row>

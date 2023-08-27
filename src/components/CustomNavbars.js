@@ -50,9 +50,9 @@ export default function CustomNavbar(props) {
           <NavItem className="nav-item">
             <NavLink href="">About Us</NavLink>
           </NavItem>
-          {/* <NavItem className="nav-item">
+          <NavItem className="nav-item">
             <NavLink href="">Privacy Policy</NavLink>
-          </NavItem> */}
+          </NavItem>
         </Nav>
       </Collapse>
     </Navbar>
