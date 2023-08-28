@@ -1,27 +1,31 @@
-import { Fragment } from 'react';
-import { CardGroup } from 'reactstrap';
-import Title from '../common/Title';
-import Testimonial from './Testimonial';
-
+import { Fragment } from "react";
+import { CardGroup } from "reactstrap";
+import Title from "../common/Title";
+import Testimonial from "./Testimonial";
+// import imgfile1 from "../flow1.jpg";
 const testimonialsData = [
   {
-    title: 'Enter Details',
+    title: "Enter Details",
+
     text: `Enter the details of the property e.g. Address, Length & Width of
     Plot, Builtup Area of Structure, No. of Floors, Type of Structure,
     Quality of Construction etc.`,
   },
   {
-    title: 'View Estimate Amount',
+    title: "View Estimate Amount",
+
     text: `After submiting the details, view the estimate amount generated
     for the inputs given.`,
   },
   {
-    title: 'Payment',
+    title: "Payment",
+
     text: `Once you have confirmed the estimate amount and satisfied with it,
     confirm and pay the charges.`,
   },
   {
-    title: 'Download the Estimate',
+    title: "Download the Estimate",
+
     text: `Once you have completed the transaction your estimate download
     will start automatically. A mail will also be sent on provided
     mail id.`,
@@ -31,7 +35,7 @@ const testimonialsData = [
 const Testimonials = () => {
   return (
     <Fragment>
-      <Title title="How it works!!" />
+      <Title title="How it Works" />
       <CardGroup>
         {testimonialsData.map((testimonial) => (
           <Testimonial key={testimonial.title} {...testimonial} />

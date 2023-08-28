@@ -1,8 +1,52 @@
 .cardBox {
-  width: 15rem;
-  padding: 0px 20px;
-  margin: 0 15px;
+  width: 150px;
+  
+  padding: 0px 25px;
+  margin: 0 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-style: -moz-initial;
   text-align: center;
+}
+@media (max-width: 576px) {
+  .cardBox {
+    width: 15rem;
+    padding: 0px 20px;
+    margin: auto auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-style: -moz-initial;
+    text-align: center;
+}
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .cardBox {
+    width: 15rem;
+    padding: 0px 20px;
+    margin: 0 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-style: -moz-initial;
+    text-align: center;
+}
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .cardBox {
+    width: 15rem;
+    padding: 0px 20px;
+    margin: 0 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-style: -moz-initial;
+    text-align: center;
+}
+}
+
+@media (min-width: 993px) {
+  .cardBox {
+    width: 15rem;
+    padding: 0px 20px;
+    margin: 0 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-style: -moz-initial;
+    text-align: center;
+}
 }

@@ -33,7 +33,9 @@ export default function CustomNavbar(props) {
       }}
     >
       <NavbarBrand className="navbar-brand" Link="/">
-        EstimatorPro
+        <Link className="navbar-brand" to="/">
+          EstimatorPro
+        </Link>
       </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>

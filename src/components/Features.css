@@ -6,11 +6,15 @@
 }
 .carousel-item {
     display: flex;
+    margin: auto auto;
     justify-content: center;
   }
 
   .owl-dots{
-    width: 500px;
+    display: flex;
+    width: 100px;
+    margin: auto auto;
+    
   }
   
   .carousel-box {
