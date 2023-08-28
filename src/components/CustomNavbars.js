@@ -8,6 +8,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CustomNavbars.css";
 
@@ -22,36 +23,51 @@ export default function CustomNavbar(props) {
       light
       className="navbar"
       expand="md"
+      fixed="top"
+      container="fluid"
       style={{
         alignContent: "center",
         textAlign: "center",
-        display: "flex",
+        display: "block",
         padding: "10px",
       }}
     >
-      <NavbarBrand className="navbar-brand" href="/">
+      <NavbarBrand className="navbar-brand" Link="/">
         EstimatorPro
       </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ms-auto nav" navbar>
           <NavItem className="nav-item">
-            <NavLink href="/components/">Home</NavLink>
+            <Link className="nav-link" to="/">
+              Home
+            </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <NavLink href="">Testimonals</NavLink>
+            <Link className="nav-link" to="/testimonals">
+              Testimonals
+            </Link>
+            {/* <NavLink to=""></NavLink> */}
           </NavItem>
           <NavItem className="nav-item">
-            <NavLink href="">Pricing</NavLink>
+            <Link className="nav-link" to="/pricing">
+              Pricing
+            </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <NavLink href="">Contact Us</NavLink>
+            <Link className="nav-link" to="/contactus">
+              Contact Us
+            </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <NavLink href="">About Us</NavLink>
+            <Link className="nav-link" to="/aboutus">
+              About Us
+            </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <NavLink href="">Privacy Policy</NavLink>
+            <Link className="nav-link" to="/privacypolicy">
+              Privacy Policy
+            </Link>
           </NavItem>
         </Nav>
       </Collapse>

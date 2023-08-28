@@ -29,9 +29,9 @@ const Legend = () => {
       <h1 style={{ fontStyle: "bold" }}>
         Welcome to <span style={{ color: "#6c55ff" }}>EstimatorPro</span>
       </h1>
-      <h1 style={{ fontStyle: "bold" }}>
+      <h2 style={{ fontStyle: "bold" }}>
         Get <span style={{ color: "#6c55ff" }} ref={el}></span>{" "}
-      </h1>
+      </h2>
       <p className="detailed">
         Enter the details, make payment and get your construction estimate
         instantly downloaded as well as on mail. The estimate generated is as

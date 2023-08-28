@@ -1,0 +1,35 @@
+
+
+.shipping {
+    padding: 50px 0;
+  }
+  
+  .section-header {
+    margin-bottom: 30px;
+  }
+  
+  .about-text {
+    margin-bottom: 40px;
+  }
+  
+  .about-text h2 {
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .about-text a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
