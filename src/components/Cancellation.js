@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Cancellation.css";
 export default function Cancellation() {
   return (
-    <Fragment className="cancellation">
+    <div className="cancellation">
       <Container>
         <div className="section-header ">
           <h1>Cancellation & Refund Policy</h1>
@@ -69,6 +69,6 @@ export default function Cancellation() {
           </Col>
         </Row>
       </Container>
-    </Fragment>
+    </div>
   );
 }

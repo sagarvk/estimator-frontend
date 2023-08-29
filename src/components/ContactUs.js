@@ -14,7 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./ContactUs.css";
 export default function ContactUs() {
   return (
-    <Fragment className="contact-us">
+    <div className="contact-us">
       <Container>
         <div className="section-header ">
           <h1>Contact EstimatorPro</h1>
@@ -64,6 +64,6 @@ export default function ContactUs() {
           </Col>
         </Row>
       </Container>
-    </Fragment>
+    </div>
   );
 }

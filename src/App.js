@@ -20,6 +20,7 @@ import Terms from "./components/Terms";
 import Cancellation from "./components/Cancellation";
 import Shipping from "./components/Shipping";
 import ScrollToTop from "./common/ScrollToTop";
+import Comments from "./components/Comments";
 axios.defaults.baseURL = "http://localhost:4000/";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Container fluid className="main-section">
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/testimonials" element={<Comments />}></Route>
           <Route exact path="/pricing" element={<Pricing />}></Route>
           <Route exact path="/contactus" element={<ContactUs />}></Route>
           <Route exact path="/aboutus" element={<AboutUs />}></Route>

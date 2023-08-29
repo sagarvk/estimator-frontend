@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./AboutUs.css";
 export default function AboutUs() {
   return (
-    <Fragment className="about-us">
+    <div className="about-us">
       <Container>
         <div className="section-header">
           <h1>About EstimatorPro</h1>
@@ -65,6 +65,6 @@ export default function AboutUs() {
           </Col>
         </Row>
       </Container>
-    </Fragment>
+    </div>
   );
 }

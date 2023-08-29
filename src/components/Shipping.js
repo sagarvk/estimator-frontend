@@ -2,15 +2,15 @@ import React, { Fragment } from "react";
 import { Container, Row, Col } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Cancellation.css";
+import "./Shipping.css";
 export default function Shipping() {
   return (
-    <Fragment className="shipping">
+    <div className="shipping">
       <Container>
         <div className="section-header ">
           <h1>Shipping & Delivery Policy</h1>
           <p>Last updated on Aug 28th 2023</p>
-          <p>Shipping is not applicable for business.</p>{" "}
+          <p>Shipping is not applicable for this business.</p>{" "}
         </div>
 
         <Row>
@@ -29,6 +29,6 @@ export default function Shipping() {
           </Col>
         </Row>
       </Container>
-    </Fragment>
+    </div>
   );
 }

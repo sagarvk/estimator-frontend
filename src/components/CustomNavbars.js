@@ -6,7 +6,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,7 +28,7 @@ export default function CustomNavbar(props) {
         alignContent: "center",
         textAlign: "center",
         display: "block",
-        padding: "10px",
+        padding: "10px 40px",
       }}
     >
       <NavbarBrand className="navbar-brand" Link="/">
@@ -46,10 +45,9 @@ export default function CustomNavbar(props) {
             </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <Link className="nav-link" to="/testimonals">
+            <Link className="nav-link" to="/testimonials">
               Testimonals
             </Link>
-            {/* <NavLink to=""></NavLink> */}
           </NavItem>
           <NavItem className="nav-item">
             <Link className="nav-link" to="/pricing">

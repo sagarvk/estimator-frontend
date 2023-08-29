@@ -7,11 +7,11 @@ export default function Footers() {
     <footer
       style={{
         display: "flex",
+        width: "100%",
         // margin: "25px 0 0 0",
         alignItems: "center",
         backgroundColor: "#6c55ff",
-        padding: "5px 0px",
-        // height: "70px",
+        padding: "10px 0px",
         justifyContent: "center",
       }}
     >
@@ -45,7 +45,7 @@ export default function Footers() {
         <Col md={12}>
           <Row>
             <h6 className="text-center" style={{ color: "white" }}>
-              &copy; 2023 EstimatorPro Consultants
+              &copy; 2023 EstimatorPro.com
             </h6>
           </Row>
         </Col>

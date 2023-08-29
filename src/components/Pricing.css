@@ -4,9 +4,9 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  
+.pricing-body {
+  margin: 10px;
+  /* height: 100vh !important; */
   background: #ffffff;
 }
 
@@ -25,6 +25,7 @@ h1.demo-title a {
   margin: 0 auto;
   background: #ffffff;
   align-items: center;
+  
 }
 
 .pricing-table .ptable-item {

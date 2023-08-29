@@ -1,0 +1,36 @@
+
+.testimonials {
+    padding: 20px 0;
+    min-height: 100vh;
+   
+  }
+ 
+  
+  .testimonial {
+    border: 1px solid #ced4da;
+    padding: 20px;
+    min-height: 375px !important;
+    background-color: #fff;
+    margin-bottom: 30px;
+    transition: transform 0.3s;
+  }
+  
+  .testimonial:hover {
+    transform: translateY(-5px);
+  }
+  
+  .testimonial-text {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .testimonial-author {
+    font-size: 14px;
+    color: #6c757d;
+  }
+
+
+  
+  
+
+  
