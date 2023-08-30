@@ -61,6 +61,11 @@ export const razorPayHandler = async (response, data, formData) => {
   }
 };
 
+export const contactUs = async (contactForm) => {
+  const contactsubmit = await axios.post("/estimate/contactus", contactForm);
+  return contactsubmit;
+};
+
 export const addClient = async (
   response,
   formData,

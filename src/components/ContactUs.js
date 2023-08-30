@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import {
   Container,
   Row,
@@ -12,7 +12,32 @@ import {
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ContactUs.css";
+import { contactUs } from "./utils";
 export default function ContactUs() {
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    mailmessage: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setContactForm({
+      ...contactForm,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const contactformsubmit = await contactUs(contactForm);
+
+    await setContactForm({
+      name: "",
+      email: "",
+      mailmessage: "",
+    });
+  };
   return (
     <div className="contact-us">
       <Container>
@@ -22,22 +47,38 @@ export default function ContactUs() {
         </div>
         <Row>
           <Col md="6" className="contact-form">
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <FormGroup>
                 <Label for="name">Your Name</Label>
-                <Input type="text" id="name" name="name" required />
+                <Input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={contactForm.name}
+                  onChange={handleChange}
+                  required
+                />
               </FormGroup>
               <FormGroup>
                 <Label for="email">Your Email</Label>
-                <Input type="email" id="email" name="email" required />
+                <Input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={contactForm.email}
+                  onChange={handleChange}
+                  required
+                />
               </FormGroup>
               <FormGroup>
-                <Label for="message">Your Message</Label>
+                <Label for="mailmessage">Your Message</Label>
                 <Input
                   type="textarea"
-                  id="message"
-                  name="message"
+                  id="mailmessage"
+                  name="mailmessage"
                   rows="5"
+                  value={contactForm.mailmessage}
+                  onChange={handleChange}
                   required
                 />
               </FormGroup>

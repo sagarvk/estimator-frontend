@@ -32,7 +32,7 @@ export default function CustomNavbar(props) {
       }}
     >
       <NavbarBrand className="navbar-brand" Link="/">
-        <Link className="navbar-brand" to="/">
+        <Link id="RouterNavLink" className="navbar-brand" to="/">
           EstimatorPro
         </Link>
       </NavbarBrand>
