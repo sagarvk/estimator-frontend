@@ -21,29 +21,25 @@ import Cancellation from "./components/Cancellation";
 import Shipping from "./components/Shipping";
 import ScrollToTop from "./common/ScrollToTop";
 import Comments from "./components/Comments";
-axios.defaults.baseURL = "http://localhost:4000/";
+// ("");
+axios.defaults.baseURL = "https://estimator-backend-7m3w.onrender.com/";
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
       <Navbar />
-
       <Container fluid className="main-section">
         <Routes>
-          <Route exact path="/" element={<Home />}></Route>
-          <Route exact path="/testimonials" element={<Comments />}></Route>
-          <Route exact path="/pricing" element={<Pricing />}></Route>
-          <Route exact path="/contactus" element={<ContactUs />}></Route>
-          <Route exact path="/aboutus" element={<AboutUs />}></Route>
-          <Route
-            exact
-            path="/privacypolicy"
-            element={<PrivacyPolicy />}
-          ></Route>
-          <Route exact path="/terms&consditions" element={<Terms />}></Route>
-          <Route exact path="/cancellation" element={<Cancellation />}></Route>
-          <Route exact path="/shipping" element={<Shipping />}></Route>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/testimonials" element={<Comments />} />
+          <Route exact path="/pricing" element={<Pricing />} />
+          <Route exact path="/contactus" element={<ContactUs />} />
+          <Route exact path="/aboutus" element={<AboutUs />} />
+          <Route exact path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route exact path="/terms&consditions" element={<Terms />} />
+          <Route exact path="/cancellation" element={<Cancellation />} />
+          <Route exact path="/shipping" element={<Shipping />} />
         </Routes>
       </Container>
       <Footers />

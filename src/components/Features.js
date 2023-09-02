@@ -5,11 +5,11 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Features.css";
 import Title from "../common/Title";
-
+import l1 from "../clock.png";
 const Features = () => {
   const slides = [
     {
-      logo: "fi-cwsuxl-check",
+      logo: "",
       title: "User Friendly",
       content: "Estimator is extremely user friendly with few input parameters",
     },
@@ -20,7 +20,7 @@ const Features = () => {
         "Estimates generated have high accuracy with all necessary checks",
     },
     {
-      logo: "fi-cwsuhl-clock-wide",
+      logo: l1,
       title: "Time Saving",
       content: "It saves time, has estimate is generatedin just a few seconds",
     },

@@ -31,8 +31,8 @@ export default function CustomNavbar(props) {
         padding: "10px 40px",
       }}
     >
-      <NavbarBrand className="navbar-brand" Link="/">
-        <Link id="RouterNavLink" className="navbar-brand" to="/">
+      <NavbarBrand className="navbar-brand">
+        <Link className="navbar-brand" id="RouterNavLink" to="/">
           EstimatorPro
         </Link>
       </NavbarBrand>
@@ -40,32 +40,32 @@ export default function CustomNavbar(props) {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ms-auto nav" navbar>
           <NavItem className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" id="RouterNavLink" to="/">
               Home
             </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <Link className="nav-link" to="/testimonials">
+            <Link className="nav-link" id="RouterNavLink" to="/testimonials">
               Testimonals
             </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <Link className="nav-link" to="/pricing">
+            <Link className="nav-link" id="RouterNavLink" to="/pricing">
               Pricing
             </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <Link className="nav-link" to="/contactus">
+            <Link className="nav-link" id="RouterNavLink" to="/contactus">
               Contact Us
             </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <Link className="nav-link" to="/aboutus">
+            <Link className="nav-link" id="RouterNavLink" to="/aboutus">
               About Us
             </Link>
           </NavItem>
           <NavItem className="nav-item">
-            <Link className="nav-link" to="/privacypolicy">
+            <Link id="RouterNavLink" className="nav-link" to="/privacypolicy">
               Privacy Policy
             </Link>
           </NavItem>

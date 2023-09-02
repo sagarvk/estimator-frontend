@@ -23,8 +23,8 @@ export default function Footers() {
               Premium Charge
               <h1>
                 <small>₹</small> {parseInt(estimateFees).toFixed(2)}{" "}
+                <span>/ Estimate</span>
               </h1>
-              <span>/ Estimate</span>
             </div>
 
             <li>Accurate Quantites</li>

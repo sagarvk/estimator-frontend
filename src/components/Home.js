@@ -24,7 +24,6 @@ export default function Home() {
             <Features />
           </Col>
         </Row>
-
         <Row>
           <Col>
             <Testimonials />
