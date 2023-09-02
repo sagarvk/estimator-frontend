@@ -21,7 +21,7 @@ import Cancellation from "./components/Cancellation";
 import Shipping from "./components/Shipping";
 import ScrollToTop from "./common/ScrollToTop";
 import Comments from "./components/Comments";
-// ("");
+// ("https://estimator-backend-7m3w.onrender.com/") "http://localhost:4000/";
 axios.defaults.baseURL = "https://estimator-backend-7m3w.onrender.com/";
 
 function App() {
