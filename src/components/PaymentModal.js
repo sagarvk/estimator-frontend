@@ -50,30 +50,34 @@ const PaymentModal = ({
     // if (result.error) {
     //   console.log(result.error);
     // }
-    const session = await stripeHandler(formData);
-    console.log(session);
 
-    const result = stripe.redirectToCheckout({ sessionId: session.data.id });
-    if (result.error) {
-      console.log(result.error);
-    }
-    // const order = await createOrder(formData);
-    // const keyid = await getKeyId();
-    // const companyname = await getCompanyName();
-    // const options = getRazorPayOptions(order, formData, keyid, companyname);
-    // options.handler = async function (response) {
-    //   await razorPayHandler(response, order, formData);
-    //   setLoading(false);
-    //   resetForm();
-    //   close();
-    // };
-    // options.modal = {
-    //   ondismiss: () => {
-    //     setLoading(false);
-    //   },
-    // };
-    // const razorPay = new window.Razorpay(options);
-    // razorPay.open();
+    // Stripe Payment
+    // const session = await stripeHandler(formData);
+    // console.log(session);
+
+    // const result = stripe.redirectToCheckout({ sessionId: session.data.id });
+    // if (result.error) {
+    //   console.log(result.error);
+    // }
+
+    ///// Razorpay Payment Gateway
+    const order = await createOrder(formData);
+    const keyid = await getKeyId();
+    const companyname = await getCompanyName();
+    const options = getRazorPayOptions(order, formData, keyid, companyname);
+    options.handler = async function (response) {
+      await razorPayHandler(response, order, formData);
+      setLoading(false);
+      resetForm();
+      close();
+    };
+    options.modal = {
+      ondismiss: () => {
+        setLoading(false);
+      },
+    };
+    const razorPay = new window.Razorpay(options);
+    razorPay.open();
   };
 
   return (
