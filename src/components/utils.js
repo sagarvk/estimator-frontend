@@ -1,3 +1,4 @@
+import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 
 export const getEstimateAmount = async (formData) => {
@@ -44,6 +45,20 @@ export const downloadPdf = async (pdfBlob, formData) => {
   tempLink.click();
   document.body.removeChild(tempLink);
   window.URL.revokeObjectURL(furl);
+};
+
+export const stripeHandler = async (formData) => {
+  // const stripe = await loadStripe(`${getKeyId()}`);
+  const stripe = await loadStripe(
+    `pk_test_51NrhvoSJukRFIJnJz8Ah2WWELi7xOjKZrfSbOpCLRKHp5ihFtOKJjyqbTjTjAjYZORrKO0serrJl244OpJfR7u2j00rDBoW3iB`
+  );
+
+  const stripepay = await axios.post("/estimate/stripecheckout", {
+    formData,
+  });
+  console.log(stripepay);
+  const session = await stripepay;
+  return session;
 };
 
 export const razorPayHandler = async (response, data, formData) => {

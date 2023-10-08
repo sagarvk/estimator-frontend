@@ -18,17 +18,17 @@ export default function Footers() {
       <Title title="Pricing" />
       <Container className="columns">
         <Row>
-          <div class="price">
-            <div class="header" style={{ backgroundColor: "#6c55ff" }}>
+          <div className="price">
+            <div className="header" style={{ backgroundColor: "#6c55ff" }}>
               Premium Charge
-              <h1>
+              <h1 style={{ color: "#ffffff" }}>
                 <small>₹</small> {parseInt(estimateFees).toFixed(2)}{" "}
                 <span>/ Estimate</span>
               </h1>
             </div>
 
             <li>Accurate Quantites</li>
-            <li>Updated SOR</li>
+            <li>Updated SSR</li>
             <li>Digitally Signed</li>
             <li>Instant Download</li>
           </div>

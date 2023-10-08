@@ -21,8 +21,9 @@ import Cancellation from "./components/Cancellation";
 import Shipping from "./components/Shipping";
 import ScrollToTop from "./common/ScrollToTop";
 import Comments from "./components/Comments";
-// ("https://estimator-backend-7m3w.onrender.com/") "http://localhost:4000/";
-axios.defaults.baseURL = "https://estimator-backend-7m3w.onrender.com/";
+import PaymentSuccess from "./components/PaymentSuccess";
+// ("https://estimator-backend-7m3w.onrender.com/") "http://localhost:4000/" "https://backend.estimatorpro.co.in/";
+axios.defaults.baseURL = "http://localhost:4000/";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route exact path="/terms&consditions" element={<Terms />} />
           <Route exact path="/cancellation" element={<Cancellation />} />
           <Route exact path="/shipping" element={<Shipping />} />
+          <Route exact path="/success" element={<PaymentSuccess />} />
         </Routes>
       </Container>
       <Footers />

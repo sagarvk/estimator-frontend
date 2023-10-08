@@ -16,8 +16,10 @@ import {
   getKeyId,
   getRazorPayOptions,
   razorPayHandler,
+  stripeHandler,
 } from "./utils";
 import loadingIndicator from "../loading.gif";
+import { loadStripe } from "@stripe/stripe-js";
 
 import styles from "./PaymentModal.module.css";
 
@@ -35,23 +37,43 @@ const PaymentModal = ({
   const handlePayment = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const order = await createOrder(formData);
-    const keyid = await getKeyId();
-    const companyname = await getCompanyName();
-    const options = getRazorPayOptions(order, formData, keyid, companyname);
-    options.handler = async function (response) {
-      await razorPayHandler(response, order, formData);
-      setLoading(false);
-      resetForm();
-      close();
-    };
-    options.modal = {
-      ondismiss: () => {
-        setLoading(false);
-      },
-    };
-    const razorPay = new window.Razorpay(options);
-    razorPay.open();
+    const stripe = await loadStripe(
+      `pk_test_51NrhvoSJukRFIJnJz8Ah2WWELi7xOjKZrfSbOpCLRKHp5ihFtOKJjyqbTjTjAjYZORrKO0serrJl244OpJfR7u2j00rDBoW3iB`
+    );
+
+    // const stripepay = await axios.post("/estimate/stripecheckout", {
+    //   response,
+    //   formData,
+    // });
+    // const sessions = await stripepay.json();
+    // const result = stripe.redirectToCheckout({ sessionId: sessions.id });
+    // if (result.error) {
+    //   console.log(result.error);
+    // }
+    const session = await stripeHandler(formData);
+    console.log(session);
+
+    const result = stripe.redirectToCheckout({ sessionId: session.data.id });
+    if (result.error) {
+      console.log(result.error);
+    }
+    // const order = await createOrder(formData);
+    // const keyid = await getKeyId();
+    // const companyname = await getCompanyName();
+    // const options = getRazorPayOptions(order, formData, keyid, companyname);
+    // options.handler = async function (response) {
+    //   await razorPayHandler(response, order, formData);
+    //   setLoading(false);
+    //   resetForm();
+    //   close();
+    // };
+    // options.modal = {
+    //   ondismiss: () => {
+    //     setLoading(false);
+    //   },
+    // };
+    // const razorPay = new window.Razorpay(options);
+    // razorPay.open();
   };
 
   return (

@@ -9,8 +9,8 @@ const Legend = () => {
       strings: [
         "Instant Estimate Download",
         "Accurate Calculations",
-        "Digitally Signed Estimate",
-        "With Latest SOR",
+        "Digitally Signed",
+        "Latest SSR",
       ],
       startDelay: 200,
       typeSpeed: 30,
@@ -35,7 +35,7 @@ const Legend = () => {
       <p className="detailed">
         Enter the details, make payment and get your construction estimate
         instantly downloaded as well as on mail. The estimate generated is as
-        per industry standards with latest SOR.
+        per industry standards with latest State Schedule of Rates (SSR).
       </p>
     </Fragment>
   );

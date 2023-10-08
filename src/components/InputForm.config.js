@@ -28,7 +28,7 @@ export const plotLength = {
   title: "Plot Length",
   fieldName: "plotLength",
   id: "plotLength",
-  placeholder: "in Sq.Ft",
+  placeholder: "in Ft.",
   type: "number",
 };
 
@@ -36,7 +36,7 @@ export const plotWidth = {
   title: "Plot Width",
   fieldName: "plotWidth",
   id: "plotWidth",
-  placeholder: "in Sq.Ft",
+  placeholder: "in Ft.",
   type: "number",
 };
 
